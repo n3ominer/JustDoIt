@@ -35,66 +35,68 @@ fun HomeScreen(
     onOpenNote: (Int) -> Unit,
     onOpenSettings: () -> Unit
 ) {
-    Column(modifier = Modifier.fillMaxSize()) {
-        TopBar(title = "My Notes", showBack = false, onMore = onOpenSettings)
+    Surface {
+        Column(modifier = Modifier.fillMaxSize().padding(top = 8.dp)) {
+            TopBar(title = "Jus Do It !", showBack = false, onMore = onOpenSettings)
 
-        Text(
-            text = "${viewModel.notes.size} Notes",
-            modifier = Modifier.padding(start = 18.dp, top = 4.dp)
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth() // Le Row prend toute la largeur disponible
-                .padding(horizontal = 24.dp)
-        ) {
-            SearchBar(
-                modifier = Modifier.weight(1f), // La SearchBar prend tout l'espace restant
-                query = viewModel.query,
-                onSearch = { viewModel.updateQuery(it) }
+            Text(
+                text = "${viewModel.notes.size} Notes",
+                modifier = Modifier.padding(start = 18.dp, top = 4.dp)
             )
-            IconButton(
-                onClick = { /* Action de tri */ },
-                modifier = Modifier.padding(start = 4.dp)
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth() // Le Row prend toute la largeur disponible
+                    .padding(horizontal = 24.dp)
             ) {
-                Icon(
-                    modifier = Modifier.size(30.dp),
-                    imageVector = Icons.AutoMirrored.Filled.List, // Icône de tri
-                    contentDescription = "Sort",
-                    tint = MaterialTheme.colorScheme.surfaceTint // Couleur personnalisée
+                SearchBar(
+                    modifier = Modifier.weight(1f), // La SearchBar prend tout l'espace restant
+                    query = viewModel.query,
+                    onSearch = { viewModel.updateQuery(it) }
                 )
+                IconButton(
+                    onClick = { /* Action de tri */ },
+                    modifier = Modifier.padding(start = 4.dp)
+                ) {
+                    Icon(
+                        modifier = Modifier.size(30.dp),
+                        imageVector = Icons.AutoMirrored.Filled.List, // Icône de tri
+                        contentDescription = "Sort",
+                        tint = MaterialTheme.colorScheme.surfaceTint // Couleur personnalisée
+                    )
+                }
             }
-        }
 
-        Text(
-            text = "My Notes",
-            modifier = Modifier.padding(start = 18.dp, top = 12.dp)
-        )
+            Text(
+                text = "My Notes",
+                modifier = Modifier.padding(start = 18.dp, top = 12.dp)
+            )
 
-        Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(12.dp))
 
-        // Grille de notes
-        val notes = viewModel.filteredNotes()
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            modifier = Modifier
-                .padding(horizontal = 12.dp)
-                .weight(1f),
-            contentPadding = PaddingValues(bottom = 90.dp)
-        ) {
-            items(notes) { note ->
-                NoteCard(note = note, onClick = { onOpenNote(note.id) })
+            // Grille de notes
+            val notes = viewModel.filteredNotes()
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                modifier = Modifier
+                    .padding(horizontal = 12.dp)
+                    .weight(1f),
+                contentPadding = PaddingValues(bottom = 90.dp)
+            ) {
+                items(notes) { note ->
+                    NoteCard(note = note, onClick = { onOpenNote(note.id) })
+                }
             }
-        }
 
-        // Floating bottom bar (déclenche l'ajout via le ViewModel)
-        FloatingBottomBar(
-            onHome = {},
-            onAddClicked = { viewModel.addSampleNote() },
-            onProfile = { onOpenSettings() }
-        )
+            // Floating bottom bar (déclenche l'ajout via le ViewModel)
+            FloatingBottomBar(
+                onHome = { /* Refresh les notes depuis un webservice*/ },
+                onAddClicked = { viewModel.addSampleNote() },
+                onProfile = { onOpenSettings() }
+            )
+        }
     }
 }
 

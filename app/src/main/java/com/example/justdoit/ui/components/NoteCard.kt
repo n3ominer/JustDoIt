@@ -1,9 +1,11 @@
 package com.example.justdoit.ui.components
 
+import android.provider.CalendarContract
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,8 +40,8 @@ fun NoteCard(note: Note, onClick: () -> Unit) {
         shadowElevation = 0.dp
     ) {
         Column(modifier = Modifier.padding(12.dp), verticalArrangement = Arrangement.SpaceBetween) {
-            Text(text = note.title, fontWeight = FontWeight.Bold, fontSize = 16.sp)
-            Text(text = note.content.take(80) + if (note.content.length > 80) "..." else "", fontSize = 12.sp)
+            Text(text = note.title, fontWeight = FontWeight.Bold, fontSize = 16.sp, color = Color.Black)
+            Text(text = note.content.take(80) + if (note.content.length > 80) "..." else "", fontSize = 12.sp, color = Color.Black)
         }
     }
 }

@@ -15,6 +15,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.tooling.preview.Preview
 
 /**
@@ -26,8 +29,10 @@ fun FloatingBottomBar(onHome: () -> Unit = {}, onAddClicked: () -> Unit = {}, on
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
-        contentAlignment = Alignment.BottomCenter
+            .padding(16.dp)
+            .padding(horizontal = 24.dp)
+            .padding(bottom = 8.dp),
+        contentAlignment = Alignment.BottomCenter,
     ) {
         // Fond arrondi
         Row(
@@ -41,7 +46,12 @@ fun FloatingBottomBar(onHome: () -> Unit = {}, onAddClicked: () -> Unit = {}, on
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             IconButton(onClick = onHome) {
-                Icon(imageVector = Icons.Default.Home, contentDescription = "Home")
+                Icon(
+                    imageVector = Icons.Outlined.Home,
+                    contentDescription = "Home",
+                    tint = Color(0xFFA185DA),
+                    modifier = Modifier.size(45.dp)
+                )
             }
 
             // Bouton + central
@@ -58,7 +68,12 @@ fun FloatingBottomBar(onHome: () -> Unit = {}, onAddClicked: () -> Unit = {}, on
             }
 
             IconButton(onClick = onProfile) {
-                Icon(imageVector = Icons.Default.Person, contentDescription = "Profile")
+                Icon(
+                    imageVector = Icons.Outlined.Person,
+                    contentDescription = "Profile",
+                    tint = Color(0xFFA185DA),
+                    modifier = Modifier.size(45.dp)
+                )
             }
         }
     }

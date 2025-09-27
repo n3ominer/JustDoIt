@@ -12,11 +12,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
-)
 
 // Couleurs pastel inspirées de l'UI
 private val Purple = Color(0xFF8E6BD9)
@@ -24,6 +19,12 @@ private val LightPink = Color(0xFFF3D9F0)
 private val LightSurface = Color(0xFFF7F3FB)
 private val OnSurface = Color(0xFF222222)
 
+private val DarkColorScheme = darkColorScheme(
+    primary = Purple80,
+    secondary = PurpleGrey80,
+    tertiary = Pink80,
+    onSurface = OnSurface,
+)
 private val LightColorScheme = lightColorScheme(
     primary = Purple,
     secondary = LightPink,
