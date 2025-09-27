@@ -11,6 +11,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.justdoit.ui.theme.JustDoItTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,29 +21,21 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             JustDoItTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                // Instanciation du ViewModel (scoped à l'activité)
+                val vm: NotesViewModel = viewModel()
+                // Lancement du Graph de navigation en lui passant le ViewModel
+                NavGraph(viewModel = vm)
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     JustDoItTheme {
-        Greeting("Android")
+        val vm: NotesViewModel = viewModel()
+        NavGraph(viewModel = vm)
     }
 }
