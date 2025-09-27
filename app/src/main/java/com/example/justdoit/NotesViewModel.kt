@@ -23,7 +23,8 @@ class NotesViewModel : ViewModel() {
     var query by mutableStateOf("")
         private set
 
-    fun setQuery(q: String) { query = q }
+
+    fun updateQuery(q: String) { query = q }
 
     // Ajouter une note factice (simule le +)
     fun addSampleNote() {
