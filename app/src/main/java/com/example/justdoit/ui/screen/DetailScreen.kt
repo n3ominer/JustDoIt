@@ -15,6 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 
 /**
@@ -26,60 +27,74 @@ fun DetailScreen(noteId: Int, viewModel: NotesViewModel, onBack: () -> Unit) {
     val note = viewModel.getNoteById(noteId)
     if (note == null) {
         // simple fallback si note introuvable
-        Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-            Text("Note introuvable")
-            Button(onClick = onBack) {
-                Text("Retour")
+        Surface {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text("Note introuvable")
+                Button(onClick = onBack) {
+                    Text("Retour")
+                }
             }
         }
         return
     }
 
-    Column(modifier = Modifier.fillMaxSize()) {
-        TopBar(title = "", showBack = true, onBack = onBack)
-        Spacer(modifier = Modifier.height(6.dp))
+    Surface {
+        Column(modifier = Modifier.fillMaxSize()) {
+            TopBar(title = "", showBack = true, onBack = onBack)
+            Spacer(modifier = Modifier.height(6.dp))
 
-        // Date
-        Text(
-            text = "20th Feb 2023 11:53 pm", // statique pour le design, sinon formatter createdAt
-            modifier = Modifier.padding(start = 18.dp),
-            style = MaterialTheme.typography.labelMedium
-        )
+            // Date
+            Text(
+                text = "20th Feb 2023 11:53 pm", // statique pour le design, sinon formatter createdAt
+                modifier = Modifier.padding(start = 18.dp),
+                style = MaterialTheme.typography.labelMedium
+            )
 
-        Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(12.dp))
 
-        // Grand titre (typographie oversize comme sur le design)
-        Text(
-            text = note.title,
-            modifier = Modifier.padding(start = 18.dp),
-            fontSize = 48.sp,
-            fontWeight = FontWeight.Bold
-        )
+            // Grand titre (typographie oversize comme sur le design)
+            Text(
+                text = note.title,
+                modifier = Modifier.padding(start = 18.dp),
+                fontSize = 48.sp,
+                fontWeight = FontWeight.Bold
+            )
 
-        Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-        // Tag "My Notes" stylisé
-        Surface(
-            modifier = Modifier.padding(start = 18.dp),
-            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
-            color = Color(0xFFF3D9F0)
-        ) {
-            Text(text = "  My Notes  ", modifier = Modifier.padding(8.dp))
+            // Tag "My Notes" stylisé
+            Surface(
+                modifier = Modifier.padding(start = 18.dp),
+                shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
+                color = Color(0xFFF3D9F0)
+            ) {
+                Text(
+                    text = "My Notes",
+                    modifier = Modifier.padding( horizontal = 16.dp, vertical = 8.dp),
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 12.sp,
+                    color = Color.Black
+                )
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            // Contenu
+            Text(
+                text = note.content,
+                modifier = Modifier.padding(horizontal = 18.dp),
+                style = MaterialTheme.typography.bodyMedium
+            )
+
+            Spacer(modifier = Modifier.weight(1f))
+
+
+            Spacer(modifier = Modifier.height(12.dp))
         }
-
-        Spacer(modifier = Modifier.height(12.dp))
-
-        // Contenu
-        Text(
-            text = note.content,
-            modifier = Modifier.padding(horizontal = 18.dp),
-            style = MaterialTheme.typography.bodyMedium
-        )
-
-        Spacer(modifier = Modifier.weight(1f))
-
-
-        Spacer(modifier = Modifier.height(12.dp))
     }
 }
 
