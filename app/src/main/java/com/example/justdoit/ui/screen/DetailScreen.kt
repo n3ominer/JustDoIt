@@ -79,10 +79,6 @@ fun DetailScreen(noteId: Int, viewModel: NotesViewModel, onBack: () -> Unit) {
 
         Spacer(modifier = Modifier.weight(1f))
 
-        // BottomBar simple pour cohérence
-        FloatingActionButton(onClick = {}) {
-            Text("+")
-        }
 
         Spacer(modifier = Modifier.height(12.dp))
     }

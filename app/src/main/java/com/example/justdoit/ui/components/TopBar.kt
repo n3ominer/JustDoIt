@@ -40,9 +40,6 @@ fun TopBar(title: String, showBack: Boolean = false, onBack: () -> Unit = {}, on
                 IconButton(onClick = onBack) {
                     Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Back")
                 }
-            } else {
-                // espace pour garder l'alignement comme sur le design
-                Spacer(modifier = Modifier.width(48.dp))
             }
 
             Column(modifier = Modifier.weight(1f)) {

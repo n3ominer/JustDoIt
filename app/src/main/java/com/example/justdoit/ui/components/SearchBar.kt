@@ -11,7 +11,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 
@@ -20,17 +19,15 @@ import androidx.compose.ui.tooling.preview.Preview
  * Appelle onSearch à chaque changement.
  */
 @Composable
-fun SearchBar(query: String, onSearch: (String) -> Unit) {
+fun SearchBar(modifier: Modifier = Modifier, query: String, onSearch: (String) -> Unit) {
     Surface(
-        modifier = Modifier
-            .fillMaxWidth()
+        modifier = modifier
             .height(54.dp),
         color = Color.Transparent
     ) {
         Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 1.dp)
+                .fillMaxWidth() // Le Row interne prend toute la largeur allouée par le modifier
         ) {
             TextField(
                 value = query,
@@ -38,7 +35,8 @@ fun SearchBar(query: String, onSearch: (String) -> Unit) {
                 placeholder = { Text("Search here...") },
                 leadingIcon = { Icon(Icons.Default.Search, contentDescription = "Search") },
                 shape = RoundedCornerShape(12.dp),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth() // Le TextField remplit le Row interne
             )
         }
     }
