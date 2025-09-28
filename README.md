@@ -56,8 +56,8 @@ app/
 
 1. Clone le projet  
  ```bash
- git clone https://github.com/ton-compte/notes-app-compose.git
- cd notes-app-compose
+ git clone git@github.com:n3ominer/JustDoIt.git
+ cd JustDoIt
  ````
 
 2. Ouvre le projet dans **Android Studio**
