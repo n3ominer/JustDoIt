@@ -84,7 +84,7 @@ class NotesViewModel(
         _notes.add(0, note)
     }
 
-    fun getNoteById(id: Int): Note? = repository.getById(id)
+    fun getNoteById(id: Int): Note? = _remotenotes.value.firstOrNull { it.id == id }
 
     fun deleteNote(id: Int) {
         repository.delete(id)
