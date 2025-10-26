@@ -1,4 +1,4 @@
-package com.example.justdoit
+package com.example.justdoit.ui.navigation
 
 /**
  * Routes pour la navigation. Utiliser des constantes permet d'éviter les erreurs de typos.

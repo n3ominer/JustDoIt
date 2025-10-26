@@ -27,7 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.justdoit.ui.components.TopBar
-import com.example.justdoit.NotesViewModel
+import com.example.justdoit.ui.viewmodel.NotesViewModel
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview

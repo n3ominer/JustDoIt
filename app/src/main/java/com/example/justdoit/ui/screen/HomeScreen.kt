@@ -15,11 +15,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.justdoit.NotesViewModel
+import com.example.justdoit.ui.viewmodel.NotesViewModel
 import com.example.justdoit.ui.components.TopBar
 import com.example.justdoit.ui.components.SearchBar
 import com.example.justdoit.ui.components.NoteCard
@@ -77,7 +79,8 @@ fun HomeScreen(
             Spacer(modifier = Modifier.height(12.dp))
 
             // Grille de notes
-            val notes = viewModel.filteredNotes()
+            //val notes = viewModel.filteredNotes()
+            val notes by viewModel.remotenotes.collectAsState()
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),
                 modifier = Modifier

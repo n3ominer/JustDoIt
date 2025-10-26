@@ -1,10 +1,10 @@
-package com.example.justdoit
+package com.example.justdoit.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
 import androidx.navigation.navArgument
-import com.example.justdoit.NotesViewModel
+import com.example.justdoit.ui.viewmodel.NotesViewModel
 import com.example.justdoit.ui.screen.DetailScreen
 import com.example.justdoit.ui.screen.HomeScreen
 import com.example.justdoit.ui.screen.SettingsScreen
