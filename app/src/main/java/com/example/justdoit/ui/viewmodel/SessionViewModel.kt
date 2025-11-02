@@ -2,7 +2,7 @@ package com.example.justdoit.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.justdoit.data.datastore.DataStoreManager
+import com.example.justdoit.data.local.datastore.DataStoreManager
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch

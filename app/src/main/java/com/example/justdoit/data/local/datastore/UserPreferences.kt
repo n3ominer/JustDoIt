@@ -1,4 +1,4 @@
-package com.example.justdoit.data.datastore
+package com.example.justdoit.data.local.datastore
 
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey

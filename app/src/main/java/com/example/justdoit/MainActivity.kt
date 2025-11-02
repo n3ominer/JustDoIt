@@ -4,11 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.justdoit.data.datastore.DataStoreManager
+import com.example.justdoit.data.local.datastore.DataStoreManager
 import com.example.justdoit.data.repository.NoteRepository
 import com.example.justdoit.ui.navigation.NavGraph
 import com.example.justdoit.ui.theme.JustDoItTheme
