@@ -7,7 +7,9 @@ import androidx.navigation.navArgument
 import com.example.justdoit.ui.viewmodel.NotesViewModel
 import com.example.justdoit.ui.screen.DetailScreen
 import com.example.justdoit.ui.screen.HomeScreen
+import com.example.justdoit.ui.screen.ProfileScreen
 import com.example.justdoit.ui.screen.SettingsScreen
+import com.example.justdoit.ui.viewmodel.SessionViewModel
 
 /**
  * Graph de navigation.
@@ -16,7 +18,7 @@ import com.example.justdoit.ui.screen.SettingsScreen
  * - route 'settings' affiche SettingsScreen
  */
 @Composable
-fun NavGraph(viewModel: NotesViewModel) {
+fun NavGraph(viewModel: NotesViewModel, sessionVm: SessionViewModel) {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = Destinations.HOME) {
@@ -46,7 +48,14 @@ fun NavGraph(viewModel: NotesViewModel) {
         }
 
         composable(Destinations.SETTINGS) {
-            SettingsScreen(onBack = { navController.popBackStack() }, viewModel = viewModel)
+            SettingsScreen(
+                onBack = { navController.popBackStack() },
+                onProfileClick = { navController.navigate(Destinations.PROFILE) }
+            )
+        }
+
+        composable(Destinations.PROFILE) {
+            ProfileScreen(sessionVm)
         }
     }
 }

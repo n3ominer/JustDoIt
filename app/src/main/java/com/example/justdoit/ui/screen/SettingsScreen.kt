@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.graphics.drawable.Icon
 import android.widget.Space
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -37,7 +38,10 @@ import androidx.compose.ui.tooling.preview.Preview
  * On propose un bouton logout stylisé et des lignes de réglages.
  */
 @Composable
-fun SettingsScreen(onBack: () -> Unit, viewModel: NotesViewModel) {
+fun SettingsScreen(
+    onBack: () -> Unit,
+    onProfileClick: () -> Unit
+) {
     Surface {
         Column(modifier = Modifier.fillMaxSize()) {
             TopBar(title = "Settings", showBack = true, onBack = onBack)
@@ -49,6 +53,9 @@ fun SettingsScreen(onBack: () -> Unit, viewModel: NotesViewModel) {
             // Liste de sections
             Column(modifier = Modifier.padding(horizontal = 12.dp)) {
                 SettingsRow(
+                    modifier = Modifier.clickable{
+                        onProfileClick()
+                    },
                     icon = {
                         Icon(
                             imageVector = Icons.Default.Person,
@@ -123,12 +130,13 @@ fun SettingsScreen(onBack: () -> Unit, viewModel: NotesViewModel) {
 
 @Composable
 fun SettingsRow(
+    modifier: Modifier = Modifier,
     icon: @Composable () -> Unit, // Paramètre pour une icône dynamique
     title: String,
     subtitle: String
 ) {
     Card(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp),
         colors = CardDefaults.cardColors(),
@@ -152,10 +160,9 @@ fun SettingsRow(
     }
 }
 
-@SuppressLint("ViewModelConstructorInComposable")
 @Composable
 @Preview(uiMode = UI_MODE_NIGHT_YES)
 fun SettingsScreenPreview() {
 
-    SettingsScreen(onBack = {}, viewModel = NotesViewModel())
+    SettingsScreen(onBack = {}, onProfileClick = {})
 }
