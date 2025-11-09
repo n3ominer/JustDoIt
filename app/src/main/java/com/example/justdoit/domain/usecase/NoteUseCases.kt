@@ -7,5 +7,8 @@ package com.example.justdoit.domain.usecase
 data class NoteUseCases(
 	val getAllNotes: GetAllNotesUseCase,
 	val getNoteById: GetNoteByIdUseCase,
+	val addNote: AddNoteUseCase,
+	val deleteNoteUseCase: DeleteNoteUseCase,
+	val updateNoteUseCase: UpdateNoteUseCase
 )
 

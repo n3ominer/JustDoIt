@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.justdoit.data.Note
 import com.example.justdoit.data.repository.NoteRepositoryImpl
 import com.example.justdoit.domain.model.NoteDto
+import com.example.justdoit.domain.usecase.NoteUseCases
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -19,11 +20,11 @@ import kotlin.random.Random
  * On utilise des State pour que Compose observe les changements automatiquement.
  */
 class NotesViewModel(
-    private val repository: NoteRepositoryImpl = NoteRepositoryImpl()
+    private val usesCases: NoteUseCases
 ) : ViewModel() {
 
     // Liste observable
-    private val _notes = mutableStateListOf<Note>().apply { addAll(repository.getAll()) }
+    private val _notes = mutableStateListOf<Note>().apply { addAll(emptyList()) }
     val notes: List<Note> get() = _notes
 
     // Texte de recherche
@@ -49,7 +50,7 @@ class NotesViewModel(
     fun fetchNotes() {
         viewModelScope.launch {
             try {
-                _remotenotes.value = repository.getNotes().map { mapNoteDtoToNote(it) }
+                _remotenotes.value = usesCases.getAllNotes().map { mapNoteDtoToNote(it) }
             } catch (e: Exception) {
                 _error.value = "Erreur de chargement: ${e.message}"
             }
@@ -80,19 +81,19 @@ class NotesViewModel(
             content = "Contenu de la note $id. Ajoute du texte ici.",
             colorIndex = Random.Default.nextInt(0, 3)
         )
-        repository.add(note)
+        usesCases.addNote(note)
         _notes.add(0, note)
     }
 
     fun getNoteById(id: Int): Note? = _remotenotes.value.firstOrNull { it.id == id }
 
     fun deleteNote(id: Int) {
-        repository.delete(id)
+        usesCases.deleteNoteUseCase(id)
         _notes.removeAll { it.id == id }
     }
 
     fun updateNote(note: Note) {
-        repository.update(note)
+        usesCases.updateNoteUseCase(note)
         val idx = _notes.indexOfFirst { it.id == note.id }
         if (idx >= 0) _notes[idx] = note
     }

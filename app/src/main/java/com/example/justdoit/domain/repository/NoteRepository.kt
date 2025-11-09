@@ -13,6 +13,6 @@ interface NoteRepository {
     suspend fun getAllNotes(): List<NoteDto>
     suspend fun getById(id: Int): Note?
     fun addNote(note: Note)
-    fun deleteNote(note: Note): Boolean
+    fun deleteNote(noteId: Int): Boolean
     fun update(updateNote: Note)
 }

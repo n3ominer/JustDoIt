@@ -96,21 +96,3 @@ fun DetailScreen(noteId: Int, viewModel: NotesViewModel, onBack: () -> Unit) {
         }
     }
 }
-
-@SuppressLint("ViewModelConstructorInComposable")
-@Composable
-@Preview
-fun DetailScreenPreview() {
-    // Note d'exemple pour le preview
-    val sampleNote = com.example.justdoit.data.Note(
-        id = 1,
-        title = "Sample Note Title",
-        content = "This is the content of the sample note. It can be quite long and detailed.",
-        createdAt = System.currentTimeMillis()
-    )
-    val viewModel = NotesViewModel().apply {
-        // Ajouter la note d'exemple au ViewModel
-        addSampleNote()
-    }
-    DetailScreen(noteId = 1, viewModel = viewModel, onBack = {})
-}

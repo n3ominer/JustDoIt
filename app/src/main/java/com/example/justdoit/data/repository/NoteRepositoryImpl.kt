@@ -17,31 +17,31 @@ class NoteRepositoryImpl(
     private val notes = mutableListOf(
         Note(
             1,
-            "Hello World!",
+            "Local note #1!",
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
             colorIndex = 0
         ),
         Note(
             2,
-            "Work Meeting Notes",
+            "Local note #2!",
             "Discussed progress on project X, deadlines, and...",
             colorIndex = 1
         ),
         Note(
             3,
-            "Class Notes",
+            "Local note #3!",
             "Lecture on Biology: DNA structure and replication...",
             colorIndex = 2
         ),
         Note(
             4,
-            "Project Plan",
+            "Local note #4!",
             "Research, design, implementation, testing, deployment",
             colorIndex = 1
         ),
         Note(
             5,
-            "To-Do List",
+            "Local note #5!",
             "Finish homework, call the dentist, buy groceries...",
             colorIndex = 2
         ),
@@ -63,20 +63,17 @@ class NoteRepositoryImpl(
     // ========================================
     // ========== MOCK CRUD OPERATIONS ========
     // ========================================
-    fun getAll(): List<Note> = notes.toList()
-
-    //fun getById(id: Int): Note? = notes.find { it.id == id }
-
-    fun add(note: Note) {
-        notes.add(0, note) // ajoute en début
-    }
-
-    fun delete(id: Int) {
-        notes.removeAll { it.id == id }
-    }
 
     override suspend fun getAllNotes(): List<NoteDto> {
-        return notes.map {
+        val remoteNotes = getNotes().map {
+            Note(
+                it.id,
+                it.title,
+                it.content
+            )
+        }
+
+        return (notes + remoteNotes).map {
             NoteDto(
                 it.id,
                 it.title,
@@ -91,8 +88,14 @@ class NoteRepositoryImpl(
 
     override fun addNote(note: Note) {}
 
-    override fun deleteNote(note: Note): Boolean {
-        return true
+    override fun deleteNote(noteId: Int): Boolean {
+        val noteToRemove = this.notes.find { it.id == noteId }
+        if (noteToRemove != null) {
+            this.notes.remove(noteToRemove)
+            return true
+        } else {
+            return false
+        }
     }
 
     override fun update(updateNote: Note) {

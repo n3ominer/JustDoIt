@@ -34,12 +34,14 @@ fun HomeScreen(
     onOpenNote: (Int) -> Unit,
     onOpenSettings: () -> Unit
 ) {
+    val notes by viewModel.remotenotes.collectAsState()
+
     Surface {
         Column(modifier = Modifier.fillMaxSize().padding(top = 8.dp)) {
             TopBar(title = "Jus Do It !", showBack = false, onMore = onOpenSettings)
 
             Text(
-                text = "${viewModel.notes.size} Notes",
+                text = "${notes.size} Notes",
                 modifier = Modifier.padding(start = 18.dp, top = 4.dp)
             )
 
@@ -76,8 +78,6 @@ fun HomeScreen(
             Spacer(modifier = Modifier.height(12.dp))
 
             // Grille de notes
-            //val notes = viewModel.filteredNotes()
-            val notes by viewModel.remotenotes.collectAsState()
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),
                 modifier = Modifier
@@ -96,22 +96,6 @@ fun HomeScreen(
                 onAddClicked = { viewModel.addSampleNote() },
                 onProfile = { onOpenSettings() }
             )
-        }
-    }
-}
-
-@SuppressLint("ViewModelConstructorInComposable")
-@Composable
-@Preview
-fun HomeScreenPreview() {
-    // Note: Pour le preview, on utilise un ViewModel factice
-    val fakeViewModel = NotesViewModel().apply {
-        // Ajouter quelques notes factices pour le preview
-        repeat(5) { addSampleNote() }
-    }
-    JustDoItTheme {
-        Surface {
-            HomeScreen(viewModel = fakeViewModel, onOpenNote = {}, onOpenSettings = {})
         }
     }
 }
