@@ -36,7 +36,7 @@ app/
      ├─ NavGraph.kt
      ├─ Destinations.kt
      ├─ model/Note.kt
-     ├─ repository/NoteRepository.kt
+     ├─ repository/NoteRepositoryImpl.kt
      ├─ viewmodel/NotesViewModel.kt
      └─ ui/
          ├─ theme/Theme.kt

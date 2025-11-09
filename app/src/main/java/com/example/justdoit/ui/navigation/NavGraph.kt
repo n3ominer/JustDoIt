@@ -4,12 +4,12 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
 import androidx.navigation.navArgument
-import com.example.justdoit.ui.viewmodel.NotesViewModel
+import com.example.justdoit.viewmodel.NotesViewModel
 import com.example.justdoit.ui.screen.DetailScreen
 import com.example.justdoit.ui.screen.HomeScreen
 import com.example.justdoit.ui.screen.ProfileScreen
 import com.example.justdoit.ui.screen.SettingsScreen
-import com.example.justdoit.ui.viewmodel.SessionViewModel
+import com.example.justdoit.viewmodel.SessionViewModel
 
 /**
  * Graph de navigation.

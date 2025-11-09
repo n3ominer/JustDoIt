@@ -1,4 +1,4 @@
-package com.example.justdoit.ui.viewmodel
+package com.example.justdoit.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

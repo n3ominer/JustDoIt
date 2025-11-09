@@ -3,14 +3,15 @@ package com.example.justdoit.data.repository
 import com.example.justdoit.data.Note
 import com.example.justdoit.data.remote.NoteRemoteDataSource
 import com.example.justdoit.domain.model.NoteDto
+import com.example.justdoit.domain.repository.NoteRepository
 
 /**
  * Repository factice. En production cela serait une base de données Room / remote API.
  * Ici on garde une liste en mémoire.
  */
-class NoteRepository(
+class NoteRepositoryImpl(
     private val remote: NoteRemoteDataSource = NoteRemoteDataSource()
-) {
+): NoteRepository {
 
     // données initiales
     private val notes = mutableListOf(
@@ -64,7 +65,7 @@ class NoteRepository(
     // ========================================
     fun getAll(): List<Note> = notes.toList()
 
-    fun getById(id: Int): Note? = notes.find { it.id == id }
+    //fun getById(id: Int): Note? = notes.find { it.id == id }
 
     fun add(note: Note) {
         notes.add(0, note) // ajoute en début
@@ -74,8 +75,28 @@ class NoteRepository(
         notes.removeAll { it.id == id }
     }
 
-    fun update(updated: Note) {
-        val idx = notes.indexOfFirst { it.id == updated.id }
-        if (idx >= 0) notes[idx] = updated
+    override suspend fun getAllNotes(): List<NoteDto> {
+        return notes.map {
+            NoteDto(
+                it.id,
+                it.title,
+                it.content
+            )
+        }
+    }
+
+    override suspend fun getById(id: Int): Note? {
+        return notes.find { it.id == id }
+    }
+
+    override fun addNote(note: Note) {}
+
+    override fun deleteNote(note: Note): Boolean {
+        return true
+    }
+
+    override fun update(updateNote: Note) {
+        val idx = notes.indexOfFirst { it.id == updateNote.id }
+        if (idx >= 0) notes[idx] = updateNote
     }
 }

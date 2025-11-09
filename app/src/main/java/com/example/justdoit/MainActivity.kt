@@ -6,16 +6,16 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.lifecycle.lifecycleScope
 import com.example.justdoit.data.local.datastore.DataStoreManager
-import com.example.justdoit.data.repository.NoteRepository
+import com.example.justdoit.data.repository.NoteRepositoryImpl
 import com.example.justdoit.ui.navigation.NavGraph
 import com.example.justdoit.ui.theme.JustDoItTheme
-import com.example.justdoit.ui.viewmodel.NotesViewModel
-import com.example.justdoit.ui.viewmodel.SessionViewModel
+import com.example.justdoit.viewmodel.NotesViewModel
+import com.example.justdoit.viewmodel.SessionViewModel
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
 
-    val notesRepo = NoteRepository()
+    val notesRepo = NoteRepositoryImpl()
     val vm: NotesViewModel = NotesViewModel(repository = notesRepo)
 
     private lateinit var dataStore: DataStoreManager

@@ -1,4 +1,4 @@
-package com.example.justdoit.ui.viewmodel
+package com.example.justdoit.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
@@ -7,7 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.justdoit.data.Note
-import com.example.justdoit.data.repository.NoteRepository
+import com.example.justdoit.data.repository.NoteRepositoryImpl
 import com.example.justdoit.domain.model.NoteDto
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,7 +19,7 @@ import kotlin.random.Random
  * On utilise des State pour que Compose observe les changements automatiquement.
  */
 class NotesViewModel(
-    private val repository: NoteRepository = NoteRepository()
+    private val repository: NoteRepositoryImpl = NoteRepositoryImpl()
 ) : ViewModel() {
 
     // Liste observable

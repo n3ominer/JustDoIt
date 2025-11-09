@@ -6,7 +6,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.justdoit.ui.viewmodel.SessionViewModel
+import com.example.justdoit.viewmodel.SessionViewModel
 
 @Composable
 fun ProfileScreen(viewModel: SessionViewModel) {
