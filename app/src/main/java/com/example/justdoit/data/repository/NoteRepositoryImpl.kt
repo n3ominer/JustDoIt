@@ -1,6 +1,8 @@
 package com.example.justdoit.data.repository
 
 import com.example.justdoit.data.Note
+import com.example.justdoit.data.local.db.NoteDao
+import com.example.justdoit.data.local.db.NoteEntity
 import com.example.justdoit.data.remote.NoteRemoteDataSource
 import com.example.justdoit.domain.model.NoteDto
 import com.example.justdoit.domain.repository.NoteRepository
@@ -10,7 +12,8 @@ import com.example.justdoit.domain.repository.NoteRepository
  * Ici on garde une liste en mémoire.
  */
 class NoteRepositoryImpl(
-    private val remote: NoteRemoteDataSource = NoteRemoteDataSource()
+    private val remote: NoteRemoteDataSource = NoteRemoteDataSource(),
+    private val dao: NoteDao
 ): NoteRepository {
 
     // données initiales
@@ -52,7 +55,15 @@ class NoteRepositoryImpl(
     // ========== REMOTE CRUD OPERATIONS ========
     // ==========================================
     suspend fun getNotes(): List<NoteDto> {
-        return remote.fetchNotes()
+        var remoteNotes: List<NoteDto> = listOf()
+        try {
+            remoteNotes = remote.fetchNotes()
+        } catch (e: Exception) {
+            // Handle exceptions such as network errors
+            println("Error fetching notes: ${e.message}")
+        }
+
+        return remoteNotes
     }
 
     suspend fun getNoteDetails(id: Int): NoteDto {
@@ -72,14 +83,44 @@ class NoteRepositoryImpl(
                 it.content
             )
         }
+        if (remoteNotes.isEmpty()) {
+            // Get data from local database if remote is empty
+            val localNotes = dao.getAllNotes().map {
+                NoteDto(
+                    it.id,
+                    it.title,
+                    it.content
+                )
+            }
 
-        return (notes + remoteNotes).map {
+            return localNotes + notes.map {
+                NoteDto(
+                    it.id,
+                    it.title,
+                    it.content
+                )
+            }
+        }
+
+        val completeListNote = (notes + remoteNotes).map {
             NoteDto(
                 it.id,
                 it.title,
                 it.content
             )
         }
+
+        completeListNote.forEach {
+            val noteEntity = NoteEntity(
+                id = it.id,
+                title = it.title,
+                content = it.content,
+                date = System.currentTimeMillis()
+            )
+            dao.insertNote(noteEntity)
+        }
+
+        return completeListNote
     }
 
     override suspend fun getById(id: Int): Note? {

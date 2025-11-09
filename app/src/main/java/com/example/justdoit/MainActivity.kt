@@ -5,8 +5,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.lifecycle.lifecycleScope
+import androidx.room.Room
 import com.example.justdoit.data.local.datastore.DataStoreManager
+import com.example.justdoit.data.local.db.NoteDatabase
 import com.example.justdoit.data.repository.NoteRepositoryImpl
+import com.example.justdoit.domain.repository.NoteRepository
 import com.example.justdoit.domain.usecase.AddNoteUseCase
 import com.example.justdoit.domain.usecase.DeleteNoteUseCase
 import com.example.justdoit.domain.usecase.GetAllNotesUseCase
@@ -21,16 +24,10 @@ import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
 
-    val notesRepo = NoteRepositoryImpl()
-    val vm: NotesViewModel = NotesViewModel(
-        NoteUseCases(
-            getAllNotes = GetAllNotesUseCase(notesRepo),
-            getNoteById = GetNoteByIdUseCase(notesRepo),
-            addNote = AddNoteUseCase(notesRepo),
-            deleteNoteUseCase = DeleteNoteUseCase(notesRepo),
-            updateNoteUseCase = UpdateNoteUseCase(notesRepo)
-        )
-    )
+
+    lateinit var  database:  NoteDatabase
+    lateinit var notesRepo: NoteRepository
+    lateinit var vm: NotesViewModel
 
     private lateinit var dataStore: DataStoreManager
     private lateinit var sessionViewModel: SessionViewModel
@@ -38,6 +35,25 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+       database =  Room.databaseBuilder(
+            this,
+            NoteDatabase::class.java,
+            "notes_db"
+        ).build()
+
+        notesRepo = NoteRepositoryImpl(
+            dao = database.noteDao()
+        )
+        vm = NotesViewModel(
+            NoteUseCases(
+                getAllNotes = GetAllNotesUseCase(notesRepo),
+                getNoteById = GetNoteByIdUseCase(notesRepo),
+                addNote = AddNoteUseCase(notesRepo),
+                deleteNoteUseCase = DeleteNoteUseCase(notesRepo),
+                updateNoteUseCase = UpdateNoteUseCase(notesRepo)
+            )
+        )
 
         dataStore = DataStoreManager(this)
         sessionViewModel = SessionViewModel(dataStore)
